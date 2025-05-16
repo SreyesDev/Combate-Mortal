@@ -73,7 +73,7 @@ combate-mortal/
 
 1. Clone el repositorio:
    ```bash
-   git clone https://github.com/tuusuario/combate-mortal.git
+   git clone https://github.com/SreyesDev/combate-mortal.git
    cd combate-mortal
    ```
 
