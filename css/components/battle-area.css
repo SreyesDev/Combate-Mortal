@@ -1,0 +1,222 @@
+/* Área principal de batalla */
+.battle-area {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  contain: layout;
+  min-height: 450px;
+  padding-bottom: 60px;
+}
+
+/* Contenedores de jugadores */
+.player-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to center, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+  padding: var(--spacing-sm);
+}
+
+.player-container.left {
+  justify-content: flex-end;
+  padding-right: 100px;
+}
+
+.player-container.right {
+  justify-content: flex-start;
+  padding-left: 100px;
+}
+
+/* Personajes seleccionados */
+.selected-character {
+  position: relative;
+  height: 90%;
+  max-height: 600px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+  will-change: opacity, transform;
+}
+
+.selected-character.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.selected-character img,
+.selected-character video {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  border: 3px solid var(--color-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-box);
+}
+
+.character-name {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  text-shadow: var(--shadow-text);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Placeholder para selección */
+.character-placeholder {
+  height: 90%;
+  max-height: 600px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed var(--color-border);
+  border-radius: var(--border-radius-md);
+  background: rgba(0, 0, 0, 0.5);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  cursor: pointer;
+  padding: var(--spacing-md);
+  text-align: center;
+}
+
+.character-placeholder:hover {
+  border-color: var(--color-primary);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.placeholder-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Indicador VS */
+.vs-indicator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 5rem;
+  color: var(--color-primary);
+  text-shadow: var(--shadow-text);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 25px;
+  border-radius: var(--border-radius-lg);
+  border: 2px solid var(--color-primary);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              opacity 0.5s ease;
+  z-index: 5;
+}
+
+.vs-indicator.visible {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 1366px) {
+  .battle-area {
+    min-height: 400px;
+  }
+  
+  .vs-indicator {
+    font-size: 4.5rem;
+  }
+  
+  .player-container.left {
+    padding-right: 80px;
+  }
+  
+  .player-container.right {
+    padding-left: 80px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .battle-area {
+    min-height: 350px;
+  }
+  
+  .vs-indicator {
+    font-size: 4rem;
+  }
+  
+  .player-container.left {
+    padding-right: 60px;
+  }
+  
+  .player-container.right {
+    padding-left: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .battle-area {
+    min-height: 300px;
+    padding-bottom: 80px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .player-container {
+    height: 250px;
+    justify-content: center;
+    padding: var(--spacing-sm);
+  }
+  
+  .player-container.left,
+  .player-container.right {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+  
+  .selected-character {
+    height: 100%;
+  }
+  
+  .character-name {
+    font-size: 1.3rem;
+  }
+  
+  .vs-indicator {
+    font-size: 3.5rem;
+    top: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .battle-area {
+    min-height: 250px;
+  }
+  
+  .player-container {
+    height: 200px;
+  }
+  
+  .character-placeholder {
+    width: 180px;
+  }
+  
+  .placeholder-icon {
+    font-size: 2.5rem;
+  }
+  
+  .selected-character img,
+  .selected-character video {
+    border-width: 2px;
+  }
+  
+  .character-name {
+    font-size: 1.1rem;
+    bottom: -25px;
+  }
+} 

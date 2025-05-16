@@ -1,0 +1,182 @@
+/* Sección de selección de personajes */
+.selection-section {
+  display: none;
+  position: relative;
+  padding: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.7);
+  border-top: 2px solid var(--color-border);
+  z-index: 10;
+}
+
+.selection-indicator {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--color-text);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color var(--transition-fast);
+}
+
+.selection-indicator.selecting-left {
+  color: #FF5555;
+}
+
+.selection-indicator.selecting-right {
+  color: #5555FF;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.character-card {
+  position: relative;
+  height: 180px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 3px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-fast), 
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.character-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-box);
+}
+
+.character-card.selected-left {
+  border-color: #FF5555;
+  box-shadow: 0 0 20px rgba(255, 85, 85, 0.5);
+}
+
+.character-card.selected-right {
+  border-color: #5555FF;
+  box-shadow: 0 0 20px rgba(85, 85, 255, 0.5);
+}
+
+.character-card.selected-both {
+  border-color: #FF00FF;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+.character-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--transition-normal);
+  background-color: #222;
+}
+
+.character-card img[data-lazy] {
+  opacity: 0;
+}
+
+.character-card img.loaded {
+  opacity: 1;
+}
+
+/* Botón de lucha */
+.fight-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: var(--gradient-primary);
+  color: var(--color-text-dark);
+  font-size: 1.8rem;
+  padding: 12px 40px;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              opacity 0.3s ease,
+              background 0.3s ease;
+  box-shadow: var(--shadow-box);
+  z-index: 100;
+}
+
+.fight-button.visible {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+.fight-button:hover {
+  background: linear-gradient(45deg, var(--color-secondary), var(--color-primary));
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* Media queries para responsividad */
+@media (max-width: 1024px) {
+  .selection-section {
+    padding: var(--spacing-sm);
+  }
+  
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+  
+  .character-card:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 768px) {
+  .selection-indicator {
+    font-size: 1.5rem;
+    padding: var(--spacing-sm);
+  }
+  
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: var(--spacing-sm);
+  }
+  
+  .character-card {
+    height: 150px;
+  }
+  
+  .selection-section {
+    padding: var(--spacing-sm) var(--spacing-xs);
+  }
+  
+  .fight-button {
+    font-size: 1.5rem;
+    padding: 10px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .selection-indicator {
+    font-size: 1.3rem;
+  }
+  
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  }
+  
+  .character-card {
+    height: 120px;
+    border-width: 2px;
+  }
+  
+  .fight-button {
+    font-size: 1.3rem;
+    padding: 8px 25px;
+    bottom: 15px;
+  }
+} 

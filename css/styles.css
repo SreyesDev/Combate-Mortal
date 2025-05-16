@@ -1,0 +1,785 @@
+/* Import base styles */
+@import 'base/reset.css';
+@import 'base/variables.css';
+
+/* Import layouts */
+@import 'layout/container.css';
+
+/* Import components */
+@import 'components/format-selection.css';
+@import 'components/battle-area.css';
+@import 'components/character-selection.css';
+
+/* Special override for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .background-lights {
+    animation: none;
+  }
+  
+  .circle-timer {
+    animation: none;
+  }
+  
+  button {
+    transition: none;
+  }
+  
+  .selected-character,
+  .format-card,
+  .character-card,
+  .vs-indicator,
+  .fight-button {
+    transition: none !important;
+  }
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Bebas Neue', Arial, sans-serif;
+  background-color: #000;
+  color: white;
+  overflow: hidden;
+}
+
+/* Contenedor principal */
+.game-container {
+  height: 100vh;
+  width: 100%;
+  /* background-image: url('../assets/images/Fondo-truenos.jpg'); */
+  background-image: url('https://images.mentoday.ru/upload/img_cache/236/236459bfec31e426a55ce71032ee2a84_ce_3000x2000x234x0.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  will-change: scroll-position;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Header - Optimizado */
+.header {
+  position: relative;
+  z-index: 10;
+  padding: 15px 0;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.header-text {
+  color: #FFD700;
+  text-shadow: 0 0 10px #FF6600, 2px 2px 4px #000;
+}
+
+.header-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  will-change: transform;
+}
+
+/* Sección de selección de formato */
+.format-selection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 15px;
+  min-height: calc(100vh - 110px);
+}
+
+.format-selection h2 {
+  font-size: 2.5rem;
+  color: #FFD700;
+  text-shadow: 0 0 10px #FF6600, 2px 2px 4px #000;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.format-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.format-card {
+  width: 260px;
+  padding: 25px 15px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 3px solid #333;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 15px;
+  flex: 1 1 260px;
+  min-width: 200px;
+}
+
+.format-card:hover {
+  transform: translateY(-5px);
+  border-color: #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.format-card h3 {
+  font-size: 1.8rem;
+  color: #FFD700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.format-card p {
+  color: #FFF;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.format-icon {
+  font-size: 3rem;
+  margin-top: 10px;
+}
+
+.selected-format-info {
+  position: absolute;
+  top: 85px;
+  right: 20px;
+  z-index: 20;
+}
+
+.format-badge {
+  background: linear-gradient(45deg, #FFD700, #FF6600);
+  color: #000;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Área principal de batalla - Optimizada */
+.battle-area {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  contain: layout;
+  min-height: 450px;
+  padding-bottom: 60px;
+}
+
+/* Contenedores de jugadores */
+.player-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to center, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+  padding: 10px;
+}
+
+.player-container.left {
+  justify-content: flex-end;
+  padding-right: 100px;
+}
+
+.player-container.right {
+  justify-content: flex-start;
+  padding-left: 100px;
+}
+
+/* Personajes seleccionados - Optimizado */
+.selected-character {
+  position: relative;
+  height: 90%;
+  max-height: 600px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  will-change: opacity, transform;
+}
+
+.selected-character.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.selected-character img,
+.selected-character video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.2));
+  will-change: filter;
+}
+
+.character-name {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(45deg, #FFD700, #FF6600);
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 2px solid #FFD700;
+  font-size: 1.5rem;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  white-space: nowrap;
+}
+
+/* Placeholder optimizado */
+.character-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 80%;
+  max-width: 300px;
+  padding: 30px 20px;
+  border: 3px dashed #555;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #888;
+  text-align: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.character-placeholder:hover {
+  border-color: #FFD700;
+  color: #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.placeholder-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  opacity: 0.7;
+}
+
+/* Indicador VS - Simplificado */
+.vs-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6rem;
+  color: #FFD700;
+  font-weight: bold;
+  text-shadow: 0 0 15px #FF6600, 3px 3px 6px #000;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vs-indicator.visible {
+  opacity: 1;
+}
+
+/* Sección de selección - Optimizada */
+.selection-section {
+  position: relative;
+  z-index: 10;
+  padding: 20px 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.7));
+  border-top: 2px solid #333;
+  contain: layout;
+  margin-top: -40px;
+}
+
+.selection-indicator {
+  text-align: center;
+  color: #FFD700;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s ease;
+}
+
+.selection-indicator.selecting-left {
+  color: #00CCFF;
+}
+
+.selection-indicator.selecting-right {
+  color: #FF6666;
+}
+
+/* Grid de personajes - Optimizado */
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  contain: layout;
+}
+
+.character-card {
+  aspect-ratio: 1;
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  position: relative;
+  will-change: transform;
+}
+
+.character-card:hover {
+  border-color: #FFD700;
+  transform: scale(1.05);
+}
+
+.character-card.selected-left {
+  border-color: #00CCFF;
+  box-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+}
+
+.character-card.selected-right {
+  border-color: #FF6666;
+  box-shadow: 0 0 10px rgba(255, 102, 102, 0.5);
+}
+
+.character-card.selected-both {
+  border-color: #FFD700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.character-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: none;
+}
+
+/* Lazy loading class */
+.character-card img[data-lazy] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.character-card img.loaded {
+  opacity: 1;
+}
+
+/* Botón de lucha - Optimizado */
+.fight-button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 40px;
+  background: linear-gradient(45deg, #FF6600, #FFD700);
+  border: none;
+  border-radius: 30px;
+  color: #000;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 20;
+  will-change: transform;
+  margin-bottom: 15px;
+}
+
+.fight-button.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fight-button:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Media queries mejoradas para responsividad */
+@media (max-width: 1366px) {
+  .format-card {
+    padding: 20px 15px;
+    width: 230px;
+  }
+  
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 7px;
+  }
+  
+  .battle-area {
+    min-height: 400px;
+  }
+  
+  .vs-indicator {
+    font-size: 5rem;
+  }
+  
+  .player-container.left {
+    padding-right: 80px;
+  }
+
+  .player-container.right {
+    padding-left: 80px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-title {
+    font-size: 2.8rem;
+    gap: 15px;
+  }
+
+  .header-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .format-selection h2 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+  }
+
+  .format-card {
+    padding: 20px 15px;
+    width: 200px;
+  }
+
+  .format-card h3 {
+    font-size: 1.6rem;
+  }
+
+  .format-card p {
+    font-size: 1.1rem;
+  }
+
+  .selection-section {
+    padding: 15px;
+  }
+
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 6px;
+  }
+
+  .vs-indicator {
+    font-size: 4rem;
+  }
+
+  /* Reducir efectos en tablets */
+  .character-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .selected-format-info {
+    top: 75px;
+    right: 15px;
+  }
+  
+  .format-badge {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
+
+  .battle-area {
+    min-height: 350px;
+  }
+  
+  .player-container.left {
+    padding-right: 70px;
+  }
+
+  .player-container.right {
+    padding-left: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 2.2rem;
+    gap: 10px;
+  }
+
+  .header-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .format-selection h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .format-options {
+    gap: 15px;
+  }
+
+  .format-card {
+    padding: 15px 10px;
+    width: 180px;
+    min-width: 150px;
+  }
+
+  .format-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .format-card p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .format-icon {
+    font-size: 2.5rem;
+  }
+
+  .battle-area {
+    flex-direction: column;
+    height: auto;
+    min-height: 350px;
+    padding-bottom: 50px;
+  }
+
+  .player-container {
+    height: 180px;
+    padding: 10px;
+  }
+
+  .player-container.left,
+  .player-container.right {
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .selected-character {
+    max-height: 150px;
+  }
+
+  .character-name {
+    font-size: 1.2rem;
+    padding: 6px 15px;
+    bottom: -25px;
+  }
+
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 5px;
+  }
+
+  .selection-indicator {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .vs-indicator {
+    font-size: 3.5rem;
+    top: 50%;
+  }
+
+  .fight-button {
+    font-size: 1.5rem;
+    padding: 12px 30px;
+    margin-bottom: 10px;
+  }
+
+  /* Desactivar hover effects en móviles */
+  .character-card:hover {
+    transform: none;
+  }
+  
+  .selected-format-info {
+    top: auto;
+    right: auto;
+    bottom: 15px;
+    left: 15px;
+  }
+
+  .selection-section {
+    margin-top: -30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    font-size: 1.8rem;
+    gap: 8px;
+  }
+
+  .header-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .format-selection h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+
+  .format-card {
+    width: 100%;
+    max-width: 160px;
+    min-width: 120px;
+    padding: 12px 8px;
+  }
+
+  .format-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+
+  .format-card p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .format-icon {
+    font-size: 2rem;
+  }
+
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 4px;
+  }
+
+  .battle-area {
+    min-height: 300px;
+    padding-bottom: 40px;
+  }
+
+  .player-container {
+    height: 150px;
+  }
+
+  .selection-indicator {
+    font-size: 1.1rem;
+  }
+
+  .character-placeholder {
+    padding: 15px 10px;
+    font-size: 0.9rem;
+  }
+
+  .placeholder-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+
+  .fight-button {
+    font-size: 1.3rem;
+    padding: 10px 25px;
+    border-radius: 25px;
+  }
+
+  /* Simplificar más en móviles pequeños */
+  .selected-character img,
+  .selected-character video {
+    filter: none;
+  }
+
+  .character-name {
+    font-size: 1rem;
+    padding: 5px 12px;
+    box-shadow: none;
+    bottom: -20px;
+  }
+  
+  .format-badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+  }
+
+  .selection-section {
+    margin-top: -20px;
+  }
+}
+
+/* Para dispositivos muy pequeños */
+@media (max-width: 360px) {
+  .header-title {
+    font-size: 1.5rem;
+    gap: 5px;
+  }
+  
+  .header-logo {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .format-selection h2 {
+    font-size: 1.4rem;
+  }
+  
+  .format-card {
+    padding: 10px 5px;
+    min-width: 110px;
+  }
+  
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 3px;
+  }
+  
+  .battle-area {
+    min-height: 250px;
+    padding-bottom: 30px;
+  }
+  
+  .player-container {
+    height: 120px;
+  }
+  
+  .fight-button {
+    font-size: 1.1rem;
+    padding: 8px 20px;
+  }
+
+  .selection-section {
+    margin-top: -15px;
+  }
+} 

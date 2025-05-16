@@ -1,0 +1,49 @@
+/* Contenedor principal */
+.game-container {
+  height: 100vh;
+  width: 100%;
+  background-image: url('../../assets/images/fondo-luna.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  will-change: scroll-position;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  position: relative;
+  z-index: 10;
+  padding: var(--spacing-md) 0;
+  text-align: center;
+  background: var(--gradient-header);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.header-text {
+  color: var(--color-primary);
+  text-shadow: var(--shadow-text);
+}
+
+.header-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: var(--border-radius-md);
+  border: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-box);
+  will-change: transform;
+} 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temporizador RapBattle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Metal+Mania&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base/variables.css">
+    <link rel="stylesheet" href="css/pages/timer.css">
+</head>
+<body>
+    <div class="background-lights"></div>
+    <img id="combat-mortal-logo" src="assets/images/Fondo-logo.jpg" alt="Logo Combate Mortal">
+    
+    <div class="format-info" id="formatInfo">MINUTO LIBRE</div>
+
+    <div class="circle-timer">
+        <svg class="progress-ring" width="320" height="320">
+            <circle
+                class="progress-ring__circle"
+                r="140"
+                cx="160"
+                cy="160"
+            />
+        </svg>
+
+        <div class="time-wrapper">
+            <div class="time-number" id="countdown">60</div>
+            <div class="time-label">SEGUNDOS</div>
+        </div>
+    </div>
+
+    <div class="word-label" id="word-label">MORTAL</div>
+    
+    <div class="controls">
+        <button id="btnIniciar" class="btn-start">Iniciar</button>
+        <button id="btnReiniciar" class="btn-reset">Reiniciar</button>
+        <button id="btnVolver" class="btn-back">Volver</button>
+    </div>
+
+    <!-- Importar JavaScript modular con type="module" -->
+    <script type="module" src="js/timer.js"></script>
+</body>
+</html> 

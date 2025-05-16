@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Combate Mortal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div class="game-container">
+    
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title">
+        <span class="header-text">Combate</span>
+        <img src="assets/images/Fondo-logo.jpg" alt="Logo" class="header-logo">
+        <span class="header-text">Mortal</span>
+      </div>
+    </div>
+
+    <!-- Sección de selección de formato -->
+    <div class="format-selection" id="formatSelection">
+      <h2>SELECCIONA EL FORMATO</h2>
+      <div class="format-options">
+        <div class="format-card" data-format="minutoLibre">
+          <h3>MINUTO LIBRE</h3>
+          <p>60 segundos</p>
+          <div class="format-icon">🔥</div>
+        </div>
+        <div class="format-card" data-format="tematica">
+          <h3>TEMÁTICA</h3>
+          <p>120 segundos</p>
+          <div class="format-icon">🎭</div>
+        </div>
+        <div class="format-card" data-format="minutosLibre">
+          <h3>MINUTOS LIBRE</h3>
+          <p>120 segundos</p>
+          <div class="format-icon">⏳</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área de batalla (inicialmente oculta) -->
+    <div class="battle-area" id="battleArea" style="display: none;">
+      
+      <!-- Jugador izquierdo -->
+      <div class="player-container left">
+        <div class="character-placeholder" id="leftPlaceholder">
+          <div class="placeholder-icon">⚔️</div>
+          <div>Selecciona tu luchador</div>
+        </div>
+        <div class="selected-character" id="leftCharacter">
+          <img id="leftCharacterImg" src="" alt="" style="display: none;">
+          <video id="leftCharacterVideo" muted loop style="display: none;">
+            Tu navegador no soporta video.
+          </video>
+          <div class="character-name" id="leftCharacterName"></div>
+        </div>
+      </div>
+
+      <!-- Indicador VS -->
+      <div class="vs-indicator" id="vsIndicator">VS</div>
+
+      <!-- Jugador derecho -->
+      <div class="player-container right">
+        <div class="character-placeholder" id="rightPlaceholder">
+          <div class="placeholder-icon">⚔️</div>
+          <div>Selecciona tu luchador</div>
+        </div>
+        <div class="selected-character" id="rightCharacter">
+          <img id="rightCharacterImg" src="" alt="" style="display: none;">
+          <video id="rightCharacterVideo" muted loop style="display: none;">
+            Tu navegador no soporta video.
+          </video>
+          <div class="character-name" id="rightCharacterName"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de selección de personajes (inicialmente oculta) -->
+    <div class="selection-section" id="selectionSection" style="display: none;">
+      <div class="selection-indicator" id="selectionIndicator">
+        Selecciona el primer luchador
+      </div>
+      
+      <div class="character-grid" id="characterGrid">
+        <!-- Los cards se generarán aquí -->
+      </div>
+    </div>
+
+    <!-- Botón de lucha -->
+    <button class="fight-button" id="fightButton">¡FIGHT!</button>
+    
+    <!-- Información del formato seleccionado
+    <div class="selected-format-info" id="selectedFormatInfo" style="display: none;">
+      <div class="format-badge" id="formatBadge"></div>
+    </div>
+  </div> -->
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>

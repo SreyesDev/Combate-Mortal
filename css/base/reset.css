@@ -1,0 +1,24 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Bebas Neue', Arial, sans-serif;
+  background-color: #000;
+  color: white;
+  overflow: hidden;
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+} 
